@@ -1,5 +1,4 @@
 /* DOM all buttons*/
-
 const b1 = document.querySelector("#one");
 const b2 = document.querySelector("#two");
 const b3 = document.querySelector("#three");
