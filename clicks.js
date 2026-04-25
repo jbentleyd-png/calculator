@@ -1,3 +1,5 @@
+/* DOM all buttons*/
+
 const b1 = document.querySelector("#one");
 const b2 = document.querySelector("#two");
 const b3 = document.querySelector("#three");
@@ -19,31 +21,63 @@ const bClear = document.querySelector("#clear");
 const bEqual = document.querySelector("#equal");
 const bToKanji = document.querySelector("#toKanji");
 
+/* Nothing Special*/
 const title = document.querySelector("#title");
+const customizableFeatures = [
+  b1,
+  b2,
+  b3,
+  b4,
+  b5,
+  b6,
+  b7,
+  b8,
+  b9,
+  b0,
+  bDecimal,
+  bPlus,
+  bMinus,
+  bMultiply,
+  bDivide,
+  bClear,
+  bEqual,
+  bToKanji,
+  title,
+];
+const originalLabels = customizableFeatures.map(
+  (feature) => feature.textContent,
+);
+const kanjiLabels = [
+  "一",
+  "二",
+  "三",
+  "四",
+  "五",
+  "六",
+  "七",
+  "八",
+  "九",
+  "〇",
+  "点",
+  "足",
+  "引",
+  "掛",
+  "割",
+  "全消",
+  "等",
+  "英",
+  "計算機",
+];
 
-const fortuneCookieTransformation = function () {
-  b1.textContent = "一";
-  b2.textContent = "二";
-  b3.textContent = "三";
-  b4.textContent = "四";
-  b5.textContent = "五";
-  b6.textContent = "六";
-  b7.textContent = "七";
-  b8.textContent = "八";
-  b9.textContent = "九";
-  b0.textContent = "〇";
-  bDecimal.textContent = "点";
-
-  bPlus.textContent = "足";
-  bMinus.textContent = "引";
-  bMultiply.textContent = "掛";
-  bDivide.textContent = "割";
-
-  bClear.textContent = "全消";
-  bEqual.textContent = "等";
-  bToKanji.textContent = "英";
-
-  title.textContent = "計算機";
-};
+let isKanjiMode = false;
 
 bToKanji.addEventListener("click", fortuneCookieTransformation);
+
+// as a function declaration, can be after the event listener (hoisting stuff)
+function fortuneCookieTransformation() {
+  isKanjiMode = !isKanjiMode; //flip the mode
+  const labels = isKanjiMode ? kanjiLabels : originalLabels; //use ternary to choose which array
+  customizableFeatures.forEach(
+    (feature, i) => (feature.textContent = labels[i]), //(fungibleItemName, sharedKey)
+  );
+}
