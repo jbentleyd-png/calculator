@@ -25,7 +25,3 @@ const operate = function (a, op, b) {
     divide(a, b);
   }
 };
-
-let num1;
-let num2;
-let operator;

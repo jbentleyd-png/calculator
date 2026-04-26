@@ -20,6 +20,36 @@ const bClear = document.querySelector("#clear");
 const bEqual = document.querySelector("#equal");
 const bToKanji = document.querySelector("#toKanji");
 
+/*Number buttons also have number values associated and clickability*/
+const numberButtons = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9];
+
+numberButtons.forEach((nb, i) => {
+  nb.value = i;
+  nb.addEventListener("click", numberPress);
+});
+
+bDecimal.value = "."; //careful with this one
+bDecimal.addEventListener("click", numberPress);
+
+/* buttons can input */
+let num1 = [];
+let num2 = [];
+let operator;
+
+//b1.addEventListener("click", numberPress);
+
+function numberPress(buttonObject) {
+  let nextDigit = buttonObject.target.value;
+  num1.push(nextDigit);
+  console.log(num1);
+  console.log(renderNumber(num1));
+}
+
+function renderNumber(numArray) {
+  return Number(numArray.join(""));
+  //pretty good, we're running into the two decimal error here....
+}
+
 /* Nothing Special*/
 const title = document.querySelector("#title");
 const customizableFeatures = [
