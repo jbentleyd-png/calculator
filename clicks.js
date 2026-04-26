@@ -37,7 +37,15 @@ let num1 = [];
 let num2 = [];
 let operator;
 
+/* track status of inputs */
+let isFloat = false;
+
 function numberPress(buttonObject) {
+  if (buttonObject.target == bDecimal && isFloat == false) {
+    isFloat = !isFloat;
+  } else if (buttonObject.target == bDecimal && isFloat == true) {
+    return; //prevents double decimal
+  }
   let nextDigit = buttonObject.target.value;
   num1.push(nextDigit);
   console.log(num1);
@@ -48,5 +56,4 @@ function numberPress(buttonObject) {
 
 function renderNumber(numArray) {
   return Number(numArray.join(""));
-  //pretty good, we're running into the two decimal error here....
 }
