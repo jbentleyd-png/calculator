@@ -57,3 +57,11 @@ function numberPress(buttonObject) {
 function renderNumber(numArray) {
   return Number(numArray.join(""));
 }
+
+bClear.addEventListener("click", clearInput);
+
+function clearInput() {
+  num1 = [];
+  isFloat = false;
+  display.textContent = renderNumber(num1);
+}
