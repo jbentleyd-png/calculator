@@ -33,9 +33,10 @@ bDecimal.value = "."; //careful with this one
 bDecimal.addEventListener("click", numberPress);
 
 /* store numbers-in-progress in arrays */
-let num1 = [];
-let num2 = [];
+let num1;
+let num2;
 let operator;
+let currentNum = [];
 
 /* track status of inputs */
 let isFloat = false;
@@ -47,10 +48,10 @@ function numberPress(buttonObject) {
     return; //prevents double decimal
   }
   let nextDigit = buttonObject.target.value;
-  num1.push(nextDigit);
-  console.log(num1);
-  console.log(renderNumber(num1));
-  display.textContent = renderNumber(num1);
+  currentNum.push(nextDigit);
+  console.log(currentNum);
+  console.log(renderNumber(currentNum));
+  display.textContent = renderNumber(currentNum);
   //seems to have a max number of digits it can write to the display. JS limitation I guess. Lucky.
 }
 
@@ -61,7 +62,7 @@ function renderNumber(numArray) {
 bClear.addEventListener("click", clearInput);
 
 function clearInput() {
-  num1 = [];
+  currentNum = [];
   isFloat = false;
-  display.textContent = renderNumber(num1);
+  display.textContent = renderNumber(currentNum);
 }
