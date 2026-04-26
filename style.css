@@ -26,6 +26,8 @@ body {
   font-size: 45px;
   padding: 0px 10px 0px;
   box-sizing: border-box;
+  font-family: "DigitalFont", monospace;
+  color: #333; /* Typical LCD text color */
 }
 
 .row {
