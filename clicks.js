@@ -33,14 +33,16 @@ bDecimal.value = "."; //careful with this one
 bDecimal.addEventListener("click", numberPress);
 
 /* store numbers-in-progress in arrays */
-let num1;
-let num2;
+let lastResult = 0;
 let operator;
-let currentNum = [];
+let inputNum = [];
 
 /* track status of inputs */
 let isFloat = false;
+let equalPressed = false;
+let lastOperator = "";
 
+/*inputting stuff */
 function numberPress(buttonObject) {
   if (buttonObject.target == bDecimal && isFloat == false) {
     isFloat = !isFloat;
@@ -48,21 +50,46 @@ function numberPress(buttonObject) {
     return; //prevents double decimal
   }
   let nextDigit = buttonObject.target.value;
-  currentNum.push(nextDigit);
-  console.log(currentNum);
-  console.log(renderNumber(currentNum));
-  display.textContent = renderNumber(currentNum);
+  inputNum.push(nextDigit);
+  console.log(inputNum);
+  console.log(renderNumber(inputNum));
+  display.textContent = renderNumber(inputNum);
   //seems to have a max number of digits it can write to the display. JS limitation I guess. Lucky.
 }
-
 function renderNumber(numArray) {
   return Number(numArray.join(""));
 }
 
-bClear.addEventListener("click", clearInput);
-
-function clearInput() {
-  currentNum = [];
+bClear.addEventListener("click", clearAll);
+function clearAll() {
+  lastResult = 0;
+  inputNum = [];
   isFloat = false;
-  display.textContent = renderNumber(currentNum);
+  display.textContent = renderNumber(inputNum);
+}
+
+/*Operating*/
+
+bPlus.addEventListener("click", doMath);
+bMinus.addEventListener("click", doMath);
+bMultiply.addEventListener("click", doMath);
+bDivide.addEventListener("click", doMath);
+
+function doMath(e) {
+  if (equalPressed == false) {
+    if (lastOperator == "") {
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      lastResult = inputNum;
+      inputNum = [];
+      display.textContent = lastResult;
+    } else {
+      lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      inputNum = [];
+      console.log(inputNum);
+      display.textContent = lastResult;
+    }
+  }
 }

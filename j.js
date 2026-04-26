@@ -14,14 +14,14 @@ const divide = function (a, b) {
   return a / b;
 };
 
-const operate = function (a, op, b) {
-  if (op == "+") {
-    add(a, b);
-  } else if (op == "-") {
-    subtract(a, b);
-  } else if (op == "*") {
-    multiply(a, b);
-  } else if (op == "/") {
-    divide(a, b);
+const operate = function (lastResult, op, inputNum) {
+  if (op == "plus") {
+    return add(lastResult, inputNum);
+  } else if (op == "minus") {
+    return subtract(lastResult, inputNum);
+  } else if (op == "multiply") {
+    return multiply(lastResult, inputNum);
+  } else if (op == "divide") {
+    return divide(lastResult, inputNum);
   }
 };
