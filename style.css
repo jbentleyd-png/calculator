@@ -35,6 +35,8 @@ body {
 button {
   flex-grow: 1;
   flex-basis: 0; /*tells broswer to ignore textwidth within the buttons*/
+  height: 40px;
+  font-size: larger;
 }
 
 .numberButton {
