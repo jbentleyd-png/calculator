@@ -20,29 +20,29 @@ const bClear = document.querySelector("#clear");
 const bEqual = document.querySelector("#equal");
 const bToKanji = document.querySelector("#toKanji");
 
+const display = document.querySelector(".display");
+
 /*Number buttons also have number values associated and clickability*/
 const numberButtons = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9];
-
 numberButtons.forEach((nb, i) => {
   nb.value = i;
   nb.addEventListener("click", numberPress);
 });
-
 bDecimal.value = "."; //careful with this one
 bDecimal.addEventListener("click", numberPress);
 
-/* buttons can input */
+/* store numbers-in-progress in arrays */
 let num1 = [];
 let num2 = [];
 let operator;
-
-//b1.addEventListener("click", numberPress);
 
 function numberPress(buttonObject) {
   let nextDigit = buttonObject.target.value;
   num1.push(nextDigit);
   console.log(num1);
   console.log(renderNumber(num1));
+  display.textContent = renderNumber(num1);
+  //seems to have a max number of digits it can write to the display. why?
 }
 
 function renderNumber(numArray) {
