@@ -78,6 +78,7 @@ function clearAll() {
   inputNum = [];
   isFloat = false;
   lastOperator = "";
+  equalPressed = false;
   display.textContent = renderNumber(inputNum);
 }
 
@@ -90,6 +91,10 @@ bDivide.addEventListener("click", doMath);
 bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
+  if (lastResult == "nice try, ho") {
+    clearAll();
+    return;
+  }
   if (e.target.id == "equal") {
     if (lastResult == 0) {
       return; //prevents inputting and hitting = from runing stuff
