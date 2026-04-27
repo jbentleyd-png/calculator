@@ -101,12 +101,22 @@ bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
   /*No preceding input OR post-error*/
-  if (
-    (inputNum.length == 0 && lastOperator == "") ||
-    lastResult == "nice try, ho"
-  ) {
+  if (inputNum.length == 0 && lastOperator == "") {
+    inputNum = e.target.id == "divide" ? [] : [0]; //prevents "/" followed by itself or another operator from effectively dividing by zero
+    console.log(inputNum);
     lastResult = 0;
-    inputNum = [0];
+    console.log("last result w e = " + lastResult);
+    lastOperator = e.target.id;
+    console.log(lastOperator);
+    display.textContent = lastResult;
+    // "//" causing zero errror from startup lives here
+    return;
+  }
+
+  if (lastResult == "nice try, ho") {
+    //subsequent ho erros live here
+    lastResult = 0;
+    inputNum = [];
     console.log(inputNum);
     console.log("last result w e = " + lastResult);
     lastOperator = e.target.id;
