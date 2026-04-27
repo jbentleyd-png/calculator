@@ -33,7 +33,7 @@ bDecimal.value = "."; //careful with this one
 bDecimal.addEventListener("click", numberPress);
 
 /* store numbers-in-progress in arrays */
-let lastResult = 0;
+let lastResult;
 let operator;
 let inputNum = [];
 
@@ -62,6 +62,13 @@ function numberPress(buttonObject) {
 }
 
 function renderNumber(numArray) {
+  if (
+    numArray.length == 0 &&
+    (lastOperator == "multiply" || lastOperator == "divide")
+  ) {
+    //aka you hit "//"" or "xx"
+    return 1; //now you divide by 1 or multiply by 1, preventing change
+  }
   return Number(numArray.join(""));
 }
 
