@@ -53,6 +53,7 @@ function numberPress(buttonObject) {
   } else if (buttonObject.target == bDecimal && isFloat == true) {
     return; //prevents double decimal
   }
+
   let nextDigit = buttonObject.target.value;
   inputNum.push(nextDigit);
   console.log(inputNum);
@@ -101,6 +102,11 @@ bDivide.addEventListener("click", doMath);
 bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
+  //prevent doubles globally instead of inside:
+  if (lastOperator == e.target.id) {
+    return;
+  }
+
   /*No preceding input OR post-error*/
   if (inputNum.length == 0 && lastOperator == "") {
     inputNum = e.target.id == "divide" ? [] : [0]; //prevents "/" followed by itself or another operator from effectively dividing by zero
@@ -124,12 +130,14 @@ function doMath(e) {
       return;
     } else {
       lastResult = 0;
-      inputNum = [];
-      console.log(inputNum);
-      console.log("last result w e = " + lastResult);
+      lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
       lastOperator = e.target.id;
       console.log(lastOperator);
+      inputNum = [];
+      console.log(inputNum);
       display.textContent = lastResult;
+      equalPressed = true;
+
       return;
     }
   }
