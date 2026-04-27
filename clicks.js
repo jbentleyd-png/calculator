@@ -105,17 +105,14 @@ function doMath(e) {
     return;
   }
 
-  if (inputNum.length == 0) {
+  if (inputNum.length == 0 && lastOperator == "") {
     lastResult = 0;
     inputNum = [0];
     console.log(inputNum);
     console.log(lastResult);
-  } //feel like this should help?
+  } //fixes regular operations when no first input is had by asssuming a zero happened
 
   if (e.target.id == "equal") {
-    //if (lastResult == 0) {
-    // return; //prevents inputting and hitting = from runing stuff
-    // }
     if (lastOperator == "equal") {
       return; //prevents double hitting = from bugging
     }
