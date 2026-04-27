@@ -84,6 +84,12 @@ bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
   if (e.target.id == "equal") {
+    if (lastResult == 0) {
+      return; //prevents inputting and hitting = from runing stuff
+    }
+    if (lastOperator == "equal") {
+      return; //prevents double hitting = from bugging
+    }
     lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
     console.log("last result w e = " + lastResult);
     lastOperator = e.target.id;
