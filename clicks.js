@@ -34,7 +34,6 @@ bDecimal.addEventListener("click", numberPress);
 
 /* store numbers-in-progress in arrays */
 let lastResult;
-let operator;
 let inputNum = [];
 
 /* track status of inputs */
@@ -56,8 +55,7 @@ function numberPress(buttonObject) {
   let nextDigit = buttonObject.target.value;
   inputNum.push(nextDigit);
   console.log(inputNum);
-  console.log(renderNumber(inputNum));
-  display.textContent = renderNumber(inputNum);
+  display.textContent = renderNumber(inputNum); //running a console.log of this pre-mutates the arrray, don't do
   //seems to have a max number of digits it can write to the display. JS limitation I guess. Lucky.
 }
 
@@ -69,6 +67,14 @@ function renderNumber(numArray) {
     //aka you hit "//"" or "xx"
     return 1; //now you divide by 1 or multiply by 1, preventing change
   }
+  if (numArray[0] == ".") {
+    inputNum = [0, "."]; // ammend input array
+    return "0."; //for display purposes...NO WORK?
+  }
+  if (numArray[numArray.length - 1] == ".") {
+    return numArray.join(""); //keep it stringy to show the decimal
+  }
+
   return Number(numArray.join(""));
 }
 
