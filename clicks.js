@@ -44,6 +44,10 @@ let lastOperator = "";
 
 /*inputting stuff */
 function numberPress(buttonObject) {
+  if (equalPressed == true) {
+    clearAll();
+    equalPressed = false;
+  }
   if (buttonObject.target == bDecimal && isFloat == false) {
     isFloat = !isFloat;
   } else if (buttonObject.target == bDecimal && isFloat == true) {
@@ -56,6 +60,7 @@ function numberPress(buttonObject) {
   display.textContent = renderNumber(inputNum);
   //seems to have a max number of digits it can write to the display. JS limitation I guess. Lucky.
 }
+
 function renderNumber(numArray) {
   return Number(numArray.join(""));
 }
@@ -65,6 +70,7 @@ function clearAll() {
   lastResult = 0;
   inputNum = [];
   isFloat = false;
+  lastOperator = "";
   display.textContent = renderNumber(inputNum);
 }
 
@@ -74,22 +80,34 @@ bPlus.addEventListener("click", doMath);
 bMinus.addEventListener("click", doMath);
 bMultiply.addEventListener("click", doMath);
 bDivide.addEventListener("click", doMath);
+bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
-  if (equalPressed == false) {
-    if (lastOperator == "") {
-      lastOperator = e.target.id;
-      console.log(lastOperator);
-      lastResult = inputNum;
-      inputNum = [];
-      display.textContent = lastResult;
-    } else {
-      lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
-      lastOperator = e.target.id;
-      console.log(lastOperator);
-      inputNum = [];
-      console.log(inputNum);
-      display.textContent = lastResult;
-    }
+  if (e.target.id == "equal") {
+    lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
+    console.log("last result w e = " + lastResult);
+    lastOperator = e.target.id;
+    console.log(lastOperator);
+    inputNum = [];
+    console.log(inputNum);
+    display.textContent = lastResult;
+    equalPressed = true;
+  } else if (lastOperator == "equal") {
+    display.textContent = lastResult;
+    lastOperator = e.target.id;
+    equalPressed = false;
+  } else if (lastOperator == "") {
+    lastOperator = e.target.id;
+    console.log(lastOperator);
+    lastResult = renderNumber(inputNum);
+    inputNum = [];
+    display.textContent = lastResult;
+  } else {
+    lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
+    lastOperator = e.target.id;
+    console.log(lastOperator);
+    inputNum = [];
+    console.log(inputNum);
+    display.textContent = lastResult;
   }
 }
