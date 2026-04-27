@@ -45,6 +45,7 @@ let lastOperator = "";
 function numberPress(buttonObject) {
   if (equalPressed == true) {
     clearAll();
+    console.log("cleared due to switch");
     equalPressed = false;
   }
   if (buttonObject.target == bDecimal && isFloat == false) {
@@ -115,14 +116,22 @@ function doMath(e) {
 
   if (lastResult == "nice try, ho") {
     //subsequent ho erros live here
-    lastResult = 0;
-    inputNum = [];
-    console.log(inputNum);
-    console.log("last result w e = " + lastResult);
-    lastOperator = e.target.id;
-    console.log(lastOperator);
-    display.textContent = lastResult;
-    return;
+    console.log("hoes unite");
+    if (e.target.id != "equal") {
+      clearAll();
+      display.textContent = lastResult;
+      lastOperator = e.target.id;
+      return;
+    } else {
+      lastResult = 0;
+      inputNum = [];
+      console.log(inputNum);
+      console.log("last result w e = " + lastResult);
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      display.textContent = lastResult;
+      return;
+    }
   }
 
   /*We DO have preceding input (or generated from above): */
