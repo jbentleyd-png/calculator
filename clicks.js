@@ -69,10 +69,13 @@ function renderNumber(numArray) {
   }
   if (numArray[0] == ".") {
     inputNum = [0, "."]; // ammend input array
-    return "0."; //for display purposes...NO WORK?
+    return "0."; //for display purposes
   }
-  if (numArray[numArray.length - 1] == ".") {
-    return numArray.join(""); //keep it stringy to show the decimal
+  if (
+    numArray[numArray.length - 1] == "." ||
+    (numArray[numArray.length - 1] == 0 && isFloat == true)
+  ) {
+    return numArray.join(""); //keep it stringy to show the decimal or zeroes
   }
 
   return Number(numArray.join(""));
