@@ -104,10 +104,18 @@ function doMath(e) {
     clearAll();
     return;
   }
+
+  if (inputNum.length == 0) {
+    lastResult = 0;
+    inputNum = [0];
+    console.log(inputNum);
+    console.log(lastResult);
+  } //feel like this should help?
+
   if (e.target.id == "equal") {
-    if (lastResult == 0) {
-      return; //prevents inputting and hitting = from runing stuff
-    }
+    //if (lastResult == 0) {
+    // return; //prevents inputting and hitting = from runing stuff
+    // }
     if (lastOperator == "equal") {
       return; //prevents double hitting = from bugging
     }
