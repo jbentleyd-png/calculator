@@ -31,6 +31,8 @@ numberButtons.forEach((nb, i) => {
 });
 bDecimal.value = "."; //careful with this one
 bDecimal.addEventListener("click", numberPress);
+//for negative functionality:
+bMinus.value = "-";
 
 /* store numbers-in-progress in arrays */
 let lastResult;
@@ -107,8 +109,17 @@ function doMath(e) {
     return;
   }
 
-  /*No preceding input OR post-error*/
+  /*No preceding input*/
   if (inputNum.length == 0 && lastOperator == "") {
+    //enable "-" as a negative sign:
+    if (e.target.id == "minus") {
+      let minusSign = e.target.value;
+      inputNum.push(minusSign);
+      console.log(inputNum);
+      display.textContent = minusSign;
+      return;
+    }
+
     inputNum = e.target.id == "divide" ? [] : [0]; //prevents "/" followed by itself or another operator from effectively dividing by zero
     console.log(inputNum);
     lastResult = 0;
@@ -120,6 +131,7 @@ function doMath(e) {
     return;
   }
 
+  /* post-error*/
   if (lastResult == "nice try, ho") {
     //subsequent ho erros live here
     console.log("hoes unite");
