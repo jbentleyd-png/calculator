@@ -100,46 +100,65 @@ bDivide.addEventListener("click", doMath);
 bEqual.addEventListener("click", doMath);
 
 function doMath(e) {
-  if (lastResult == "nice try, ho") {
-    clearAll();
-    return;
-  }
-
-  if (inputNum.length == 0 && lastOperator == "") {
+  /*No preceding input OR post-error*/
+  if (
+    (inputNum.length == 0 && lastOperator == "") ||
+    lastResult == "nice try, ho"
+  ) {
     lastResult = 0;
     inputNum = [0];
     console.log(inputNum);
-    console.log(lastResult);
-  } //fixes regular operations when no first input is had by asssuming a zero happened
+    console.log("last result w e = " + lastResult);
+    lastOperator = e.target.id;
+    console.log(lastOperator);
+    display.textContent = lastResult;
+    return;
+  }
+
+  /*We DO have preceding input (or generated from above): */
+  if (e.target.id != "equal") {
+    if (lastOperator == "") {
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      lastResult = renderNumber(inputNum);
+      inputNum = [];
+      return;
+    } else if (lastOperator == "equal") {
+      display.textContent = lastResult;
+      lastOperator = e.target.id;
+      equalPressed = false;
+      return;
+    } else {
+      lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      inputNum = [];
+      console.log(inputNum);
+      display.textContent = lastResult;
+      return;
+    }
+  }
 
   if (e.target.id == "equal") {
     if (lastOperator == "equal") {
       return; //prevents double hitting = from bugging
     }
-    lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
-    console.log("last result w e = " + lastResult);
-    lastOperator = e.target.id;
-    console.log(lastOperator);
-    inputNum = [];
-    console.log(inputNum);
-    display.textContent = lastResult;
-    equalPressed = true;
-  } else if (lastOperator == "equal") {
-    display.textContent = lastResult;
-    lastOperator = e.target.id;
-    equalPressed = false;
-  } else if (lastOperator == "") {
-    lastOperator = e.target.id;
-    console.log(lastOperator);
-    lastResult = renderNumber(inputNum);
-    inputNum = [];
-    display.textContent = lastResult;
-  } else {
-    lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
-    lastOperator = e.target.id;
-    console.log(lastOperator);
-    inputNum = [];
-    console.log(inputNum);
-    display.textContent = lastResult;
+
+    if (lastOperator == "") {
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      lastResult = renderNumber(inputNum);
+      inputNum = [];
+      display.textContent = lastResult;
+      equalPressed = true;
+      return;
+    } else {
+      lastResult = operate(lastResult, lastOperator, renderNumber(inputNum));
+      lastOperator = e.target.id;
+      console.log(lastOperator);
+      inputNum = [];
+      console.log(inputNum);
+      display.textContent = lastResult;
+    }
   }
 }
