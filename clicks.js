@@ -159,6 +159,8 @@ function doMath(e) {
       inputNum = [];
       console.log(inputNum);
       display.textContent = lastResult;
+      equalPressed = true;
+      return;
     }
   }
 }
